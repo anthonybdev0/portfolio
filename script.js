@@ -49,39 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   // =====================
-  // Parallax léger du Hero (blobs via --p)
-  // =====================
-  (() => {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
-
-    let ticking = false;
-    const update = () => {
-      const rect = hero.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      // inView: 0..1 selon la proximité du centre du hero avec le centre viewport
-      const inView = Math.min(1, Math.max(0, 1 - Math.abs(rect.top + rect.height / 2 - vh / 2) / (vh / 2)));
-      hero.style.setProperty("--p", inView.toFixed(3)); // utilisé par .hero::before/::after en CSS
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        update();
-        ticking = false;
-      });
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-  })();
-
-  // =====================
   // Scrollspy (nav active selon section visible)
   // =====================
   (() => {
