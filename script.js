@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tiltImages.forEach((img) => {
       if (prefersReduced) return; // respect accessibilité
 
-      const maxTilt = 20;  // degrés max
+      const maxTilt = 3;  // degrés max
       const scale = 1.05;  // zoom léger
       let rafId = null;
       let lastRX = 0, lastRY = 0;
@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!rafId) {
           rafId = requestAnimationFrame(() => {
+            img.style.boxShadow = `${(-lastRY).toFixed(0)}px ${lastRX.toFixed(0)}px 28px rgba(0,0,0,.25)`;
             img.style.transform = `rotateX(${lastRX.toFixed(2)}deg) rotateY(${lastRY.toFixed(2)}deg) scale(${scale})`;
             rafId = null;
           });
