@@ -1,0 +1,127 @@
+/* === Variables & reset === */
+:root{
+  --bg:#0b0c10;
+  --bg-alt:#111218;
+  --text:#e5e7eb;
+  --muted:#a1a1aa;
+  --brand:#4f46e5;
+  --brand-2:#22d3ee;
+  --card:#151823;
+  --border:#27272a;
+  --radius:16px;
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#fafafa;
+    --bg-alt:#ffffff;
+    --text:#111827;
+    --muted:#4b5563;
+    --card:#ffffff;
+    --border:#e5e7eb;
+  }
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  background:linear-gradient(180deg,var(--bg),var(--bg-alt));
+  color:var(--text);
+}
+
+img{max-width:100%;height:auto;display:block;border-radius:calc(var(--radius) - 4px)}
+a{color:inherit;text-decoration:none}
+.container{width:min(1100px, 92%);margin-inline:auto}
+.hidden{display:none}
+
+/* === Accessibility === */
+.skip{
+  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+.skip:focus{left:1rem;top:1rem;width:auto;height:auto;background:#000;color:#fff;padding:.5rem 1rem;border-radius:8px}
+
+/* === Header === */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(180%) blur(8px);
+  background-color:color-mix(in oklab, var(--bg-alt) 80%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+.logo{font-weight:800;letter-spacing:.2px}
+.logo span{background:linear-gradient(45deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav ul{display:flex;gap:1.2rem;list-style:none;padding:0;margin:0}
+.nav-toggle{display:none;background:transparent;border:1px solid var(--border);border-radius:10px;padding:.4rem .6rem;color:var(--text)}
+
+@media (max-width: 760px){
+  .nav-toggle{display:block}
+  .nav{display:none;position:absolute;right:1rem;top:3.4rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.6rem}
+  .nav.open{display:block}
+  .nav ul{flex-direction:column}
+}
+
+/* === Hero === */
+.hero{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;
+  padding:4rem 0 3rem;
+}
+.hero-text h1{font-size:clamp(2rem, 4vw, 3rem);line-height:1.2;margin:.2rem 0 .5rem}
+.hero-text p{color:var(--muted);max-width:60ch}
+.hero-cta{display:flex;gap:.8rem;margin-top:1rem;flex-wrap:wrap}
+.hero-media{align-self:center}
+@media (max-width: 900px){
+  .hero{grid-template-columns:1fr}
+  .hero-media{order:-1}
+}
+
+/* === Sections === */
+.section{padding:3rem 0}
+.section-alt{background:linear-gradient(180deg,var(--bg-alt), var(--bg))}
+.section-head h2{font-size:1.8rem;margin:.2rem 0}
+.section-head p{color:var(--muted)}
+
+/* === Cards / grid === */
+.grid{display:grid;gap:1.2rem}
+.projects{grid-template-columns:repeat(3,1fr)}
+@media (max-width: 1000px){.projects{grid-template-columns:repeat(2,1fr)}}
+@media (max-width: 640px){.projects{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.card-body{padding:1rem}
+.card-body h3{margin:.2rem 0 .4rem;font-size:1.2rem}
+.tags{display:flex;gap:.4rem;list-style:none;padding:0;margin:.6rem 0}
+.tags li{font-size:.85rem;border:1px solid var(--border);padding:.2rem .5rem;border-radius:999px;color:var(--muted)}
+.card-actions{display:flex;gap:.6rem;margin-top:.8rem}
+
+/* === About === */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.about-content .list{margin:.6rem 0 0 1rem}
+.about-content .list li{margin:.2rem 0}
+@media (max-width: 900px){.about{grid-template-columns:1fr}}
+
+/* === Form === */
+.form{max-width:640px}
+.form-row{display:flex;flex-direction:column;margin:.6rem 0}
+.form-row label{font-weight:600;margin-bottom:.2rem}
+.form-row input,.form-row textarea{
+  background:var(--bg-alt);color:var(--text);border:1px solid var(--border);
+  border-radius:12px;padding:.7rem .9rem;outline:none;
+}
+
+/* === Buttons === */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.65rem 1rem;border-radius:12px;border:1px solid transparent;
+  background:linear-gradient(45deg,var(--brand),var(--brand-2));color:white;font-weight:600
+}
+.btn:hover{opacity:.95}
+.btn-secondary{background:transparent;border-color:var(--border);color:var(--text)}
+.btn-small{padding:.45rem .7rem;font-size:.9rem}
+.btn-ghost{background:transparent;border:1px dashed var(--border)}
+
+/* === Footer === */
+.site-footer{border-top:1px solid var(--border);margin-top:2rem}
+.site-footer .container{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem;flex-wrap:wrap}
+.social{display:flex;gap:.8rem;list-style:none;padding:0;margin:0}
+.social a{color:var(--muted)}
