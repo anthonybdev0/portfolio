@@ -125,3 +125,31 @@ a{color:inherit;text-decoration:none}
 .site-footer .container{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem;flex-wrap:wrap}
 .social{display:flex;gap:.8rem;list-style:none;padding:0;margin:0}
 .social a{color:var(--muted)}
+
+/* Subtle hover on cards */
+.card{transition:transform .18s ease, box-shadow .18s ease}
+.card:hover{transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,0,0,.18)}
+
+/* Underline on nav links on hover */
+.nav a{position:relative}
+.nav a::after{
+  content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:linear-gradient(45deg,var(--brand),var(--brand-2)); transition:width .2s ease;
+}
+.nav a:hover::after{width:100%}
+
+/* Donne de la profondeur au tilt */
+.hero-media { perspective: 900px; }
+
+/* Transition douce de base */
+.tilt {
+  display: block;
+  border-radius: 12px;         /* optionnel */
+  will-change: transform;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Petit bump en fallback (si JS off) */
+.tilt:hover {
+  transform: scale(1.05) rotate(4deg);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
