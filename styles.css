@@ -13,6 +13,18 @@
   --radius:16px;
   --container-w: min(1100px, 92vw);                 /* mirrors .container */
   --edge: calc((100vw - var(--container-w)) / 2);   /* left/right gutter */
+ /* blob tuning */
+  --blob-size: clamp(260px, 38vw, 520px);
+  --blob-blur: 60px;
+  --blob-opacity: .30;
+
+  /* left blob (near left container edge) */
+  --blobL-x: -80px;    /* + -> move toward center */
+  --blobL-top: -60px; /* negative -> above viewport, positive -> inside */
+
+  /* right blob (near right container edge) */
+  --blobR-x: -60px;      /* + -> move toward center */
+  --blobR-bottom: 80px; /* negative -> below viewport, positive -> inside */
 }
 
 @media (prefers-color-scheme: light){
@@ -57,36 +69,32 @@ a{ color:inherit; text-decoration:none; }
 /* ===============================
    Blobs
    =============================== */
-/* Fixed decorative blobs (global) */
+/* Fixed decorative blobs aligned to container edges (tweak via variables) */
 :root::before,
 :root::after{
   content:"";
-  position: fixed;            /* fixed to viewport */
-  width: clamp(260px, 38vw, 520px);
-  height: clamp(260px, 38vw, 520px);
+  position: fixed;
+  width: var(--blob-size);
+  height: var(--blob-size);
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: .45;
+  filter: blur(var(--blob-blur));
+  opacity: var(--blob-opacity);
   pointer-events: none;
-  z-index: 0;                 /* below content */
+  z-index: 0;
   transform: translateZ(0);
 }
 
-/* left blob, slightly inside the container edge */
+/* left blob */
 :root::before{
-  top: clamp(-80px, -6vw, -40px);
-  left: calc(var(--edge) + 20px);  /* uses global --edge */
-  right: auto;     /* reset */
-  bottom: auto;    /* reset */
+  top: var(--blobL-top);
+  left: calc(var(--edge) + var(--blobL-x));
   background: radial-gradient(closest-side, var(--brand), transparent 70%);
 }
 
-/* right blob, slightly inside the container edge */
+/* right blob */
 :root::after{
-  bottom: clamp(-140px, -8vw, -60px);
-  right: calc(var(--edge) + 20px); /* uses global --edge */
-  left: auto;      /* reset */
-  top: auto;       /* reset */
+  bottom: var(--blobR-bottom);
+  right: calc(var(--edge) + var(--blobR-x));
   background: radial-gradient(closest-side, var(--brand-2), transparent 70%);
 }
 
