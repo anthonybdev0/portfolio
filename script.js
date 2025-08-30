@@ -23,53 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.style.scrollBehavior = "smooth";
 
   // =====================
-  // Effet TILT
-  // =====================
-  const tiltImages = document.querySelectorAll(".tilt");
-  if (tiltImages.length) {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    tiltImages.forEach((img) => {
-      if (prefersReduced) return;
-      const maxTilt = window.innerWidth < 768 ? 3 : 8;
-      const scale = 1.05;
-      let rafId = null, lastRX = 0, lastRY = 0;
-
-      const onMove = (e) => {
-        const rect = img.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        const nx = x / rect.width - 0.5;
-        const ny = y / rect.height - 0.5;
-        const targetRY = nx * (maxTilt * 2);
-        const targetRX = ny * -(maxTilt * 2);
-
-        const ease = 0.18;
-        lastRX += (targetRX - lastRX) * ease;
-        lastRY += (targetRY - lastRY) * ease;
-
-        if (!rafId) {
-          rafId = requestAnimationFrame(() => {
-            img.style.transform = `rotateX(${lastRX.toFixed(2)}deg) rotateY(${lastRY.toFixed(2)}deg) scale(${scale})`;
-            rafId = null;
-          });
-        }
-      };
-
-      const onLeave = () => {
-        img.style.transition = "transform 0.3s ease";
-        img.style.transform = "rotateX(0) rotateY(0) scale(1)";
-        setTimeout(() => (img.style.transition = "transform 0.05s ease"), 310);
-      };
-
-      img.addEventListener("mousemove", onMove);
-      img.addEventListener("mouseleave", onLeave);
-      img.addEventListener("touchstart", onMove, { passive: true });
-      img.addEventListener("touchmove", onMove, { passive: true });
-      img.addEventListener("touchend", onLeave);
-    });
-  }
-
-  // =====================
   // Scroll reveal
   // =====================
   (() => {
